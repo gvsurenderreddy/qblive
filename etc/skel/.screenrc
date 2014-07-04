@@ -1,0 +1,6 @@
+backtick 1 10 10 "$HOME/.bat_info.sh"
+
+hardstatus alwayslastline "%w%?%=%c %1`"
+#caption always '%w'
+startup_message off
+
