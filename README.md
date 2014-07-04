@@ -28,7 +28,8 @@ Partition the device with two partitions; one to hold the iso and boot loader (g
     sudo mount -L qblive /mnt/qbl
     #install grub
     #note: the --force flag should only be needed if installing to a usb drive; real hard drives can omit it
-    sudo grub-install --force --no-floppy --boot-directory=/mnt/qbl/boot /dev/disk/by-label/qblive
+	#note: this assumes you're targeting the device at /dev/sdc. change as appropriate
+    sudo grub-install --force --no-floppy --boot-directory=/mnt/qbl/boot /dev/sdc
 
 * Copy the iso onto the qblive partition
 
@@ -44,6 +45,22 @@ Partition the device with two partitions; one to hold the iso and boot loader (g
 
 * Unmount and boot the device
 
-    umount /mnt/qbl
-    reboot
+    sudo umount /mnt/qbl
+    sudo reboot
+
+Troubleshooting
+---------------
+The gizmo boots to a blank screen with a blinking cursor instead of showing grub menu
+
+Install grub to the device (/dev/sdc), not the partition (/dev/sdc1)
+
+
+Device Label not found, waiting 30 seconds... / try to fix the problem manually.
+
+This may happen with either the qblive partition or the iso itself.
+
+* with the `qblive` partition, once dropped into the shell to fix the problem manually, the device was recognized, the /dev/disk/by-label/qblive simlink was created automatically, and everything worked after exiting the shell
+
+* with the `ARCH_201407` error, check that the grub.cfg file has the correct archisolabel flag (discover the iso's actual label by installing isotools (`sudo pacman -Sy cdrkit`) and running `isoinfo -d -i /dev/qbl/qblive.iso | grep 'Volume id'`
+
 
