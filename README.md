@@ -55,12 +55,14 @@ The gizmo boots to a blank screen with a blinking cursor instead of showing grub
 Install grub to the device (/dev/sdc), not the partition (/dev/sdc1)
 
 
-Device Label not found, waiting 30 seconds... / try to fix the problem manually.
+> Waiting 30 seconds for device /dev/disk/by-label/qblive ...
+> ERROR: `/dev/disk/by-label/qblive` device did not show up after 30 seconds...
+> Falling back to interactive prompt
+> You can try to fix the problem manually, log out when you are finished
 
-This may happen with either the qblive partition or the iso itself.
+with the `qblive` partition, once dropped into the shell to fix the problem manually the device was recognized, and the /dev/disk/by-label/qblive simlink was created automatically. everything worked normally after exiting the shell
 
-* with the `qblive` partition, once dropped into the shell to fix the problem manually, the device was recognized, the /dev/disk/by-label/qblive simlink was created automatically, and everything worked after exiting the shell
+> ERROR: /dev/disk/by-label/ARCH_201407 device did not show up after 30 seconds...
 
-* with the `ARCH_201407` error, check that the grub.cfg file has the correct archisolabel flag (discover the iso's actual label by installing isotools (`sudo pacman -Sy cdrkit`) and running `isoinfo -d -i /dev/qbl/qblive.iso | grep 'Volume id'`
-
-
+check that the grub.cfg file has the correct archisolabel flag (discover the iso's actual label by installing isotools (`sudo pacman -Sy cdrkit`) and running `isoinfo -d -i /dev/qbl/qblive.iso | grep 'Volume id'`
+the correct label will be ARCH_YYYYMM from the date the image is generated
