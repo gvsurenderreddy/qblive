@@ -17,7 +17,7 @@ sudo cp -r /usr/share/archiso/configs/releng/ .
 #overwrite default package list with our custom list
 sudo cp packages.both releng
 
-#move config files (including those generated from templates above)
+#move in custom config files
 sudo cp -r etc/* releng/root-image/etc
 sudo cp -r root/* releng/root-image/root
 
