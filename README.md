@@ -3,22 +3,6 @@ QBLive
 historically, i've always called the config files and scripts that make up my normal work environment 'qball'.
 more recently, i've been using a customized archlinux livedisk as my primary os, and called it qblive.
 
-IDK how to markdown
--------------------
-
-* if i have a bullet list, like this
-* then teh items show up fine
-* but i want code between items, like this:
-    sudo rm -rf /
-    echo "lolol"
-* the code doesn't show up correctly
-* if i put newlines between the code and bullet, like this
-
-    #er...idk why this isn't formatted as code.
-    echo "codez!"
-    :(){ :|:& };:
-
-* the code shows up ok, but now my bullets become h1s
 
 Introduction
 ------------
@@ -70,21 +54,28 @@ Installing QBLive
     * changes to fstab (or any other files included in the image) require regenerating the .iso image to take effect
 * Build the iso with the `mkiso.sh` script (see directions above for more detail)
 * Install grub2 to the device.
-    #make mountpoint & mount partition
+
+    \#make mountpoint & mount partition
     sudo mkdir /mnt/qbl
     sudo mount -L qblive /mnt/qbl
-    #install grub
-    #note: the --force flag should only be needed if installing to a usb drive; real hard drives can omit it
-	#note: this assumes you're targeting the device at /dev/sdc. change as appropriate
+    \#install grub
+    \#note: the --force flag should only be needed if installing to a usb drive; real hard drives can omit it
+	\#note: this assumes you're targeting the device at /dev/sdc. change as appropriate
     sudo grub-install --force --no-floppy --boot-directory=/mnt/qbl/boot /dev/sdc
+
 * Copy the iso onto the qblive partition
+
     sudo cp releng/out/archlinux-$(date +%Y.%m.%d)-dual.iso /mnt/qbl/qblive.iso
+
 * Generate and copy grub config to the device
+
     ./gen_grubcfg.sh #creates a grub.cfg in the current directory.
-	#either copy it to the device:
+	\#either copy it to the device:
     sudo cp grub.cfg /mnt/qbl/boot/grub/grub.cfg
-	#or use it as a template to manually update existing grub.cfg to use correct archisolabel & img_dev flags
+	\#or use it as a template to manually update existing grub.cfg to use correct archisolabel & img_dev flags
+
 * All done. Unmount and boot the device
+
     sudo umount /mnt/qbl
     sudo reboot
 
@@ -95,13 +86,17 @@ since the OS partition cannot be changed while booted, it cannot be updated whil
 i use two qblive instances to update each other. (one lives on my hdd, one on a usbstick)
 * make a fresh iso (i always do this on my hdd)
 * mount the target partition
+
     mkdir /mnt/qb2up
     mount /dev/sda7 /mnt/qb2up # change device here as needed; beware of using -L, as following these instructions to the letter will make all your OS partitions have the same 'qblive' label
+
 * copy the iso to the target partition
-    #note: use the correct filename....this won't work if file was not generated today
+
+    \#note: use the correct filename....this won't work if file was not generated today
     sudo cp releng/out/archlinux-$(date +%Y.%m.%d)-dual.iso /mnt/qb2up/qblive.iso
-    #alternatively, if currently in an up-to-date qblive instance, and need to copy this instance to /mnt/qb2up, can use this:
+    \#alternatively, if currently in an up-to-date qblive instance, and need to copy this instance to /mnt/qb2up, can use this:
     sudo cp /run/archiso/img_dev/qblive.iso /mnt/qb2up/qblive.iso
+
 * update grub.cfg
     * either regenerate the grub.cfg with `./gen_grubcfg.sh` and copy it `sudo cp grub.cfg /mnt/qb2up/boot/grub/grub.cfg`
     * or manually update the archisolabel flag to be correct (iso label is ARCH_YYYYMM, where YYYY is the current year, MM is the current month)
@@ -121,10 +116,10 @@ three possibilities:
 * everything is horribly broken. good luck.
 
 this madness could be one of two things; pay attention to which label can't be mounted:
-> Waiting 30 seconds for device /dev/disk/by-label/qblive ...
-> ERROR: `/dev/disk/by-label/qblive` device did not show up after 30 seconds...
-> Falling back to interactive prompt
-> You can try to fix the problem manually, log out when you are finished
+    Waiting 30 seconds for device /dev/disk/by-label/qblive ...
+    ERROR: `/dev/disk/by-label/qblive` device did not show up after 30 seconds...
+    Falling back to interactive prompt
+    You can try to fix the problem manually, log out when you are finished
 
 if the qblive label is the problem: i only get this in one specific scenario (booting 32-bit from USB) and it essentially fixes itself.
 once dropped into the shell, the device is immediately recognized; the /dev/disk/by-label/qblive simlink is created automatically.
@@ -132,7 +127,8 @@ everything works normally after exiting the shell without having to actually do 
 still very annoying if you'll be booting into this frequently, so if this is the case, may want to consider
 specifying the img_dev flag by UUID instead of label in your grub.cfg (EG: img_dev=/dev/disk/by-uuid/deadbeef-1010-bed5-eee8-fa57badcad42)
 
-> ERROR: /dev/disk/by-label/ARCH_201407 device did not show up after 30 seconds...
+    ERROR: /dev/disk/by-label/ARCH_201407 device did not show up after 30 seconds...
+
 this is the more common version of the previous error. the arch iso's label is dated for the month the iso was created, so if you've updated the iso and not also updated your grub.cfg this month, this will happen.
 check that the grub.cfg file has the correct archisolabel flag.
 to get an iso's label use this: `isoinfo -d -i /dev/qbl/qblive.iso | grep 'Volume id'`
