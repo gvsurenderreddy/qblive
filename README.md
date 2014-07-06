@@ -3,6 +3,21 @@ QBLive
 historically, i've always called the config files and scripts that make up my normal work environment 'qball'.
 more recently, i've been using a customized archlinux livedisk as my primary os, and called it qblive.
 
+IDK how to markdown
+-------------------
+
+* if i have a bullet list, like this
+* then teh items show up fine
+* but i want code between items, like this:
+    sudo rm -rf /
+    echo "lolol"
+* the code doesn't show up correctly
+* if i put newlines between the code and bullet, like this
+
+    echo "codez!"
+    :(){ :|:& };:
+
+* the code shows up ok, but now my bullets become h1s
 
 Introduction
 ------------
