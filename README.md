@@ -14,6 +14,7 @@ IDK how to markdown
 * the code doesn't show up correctly
 * if i put newlines between the code and bullet, like this
 
+    #er...idk why this isn't formatted as code.
     echo "codez!"
     :(){ :|:& };:
 
