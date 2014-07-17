@@ -11,8 +11,17 @@ set softtabstop=4  "backspace over expanded tabs
 "set expandtab     "use spaces for tabs instead of tabs for tabs
 set copyindent     "match indentation level of previous line
 
-" status line
-so ~/.vim/statusline.vim
+" buffers management
+map <C-k> :bp!<CR>
+map <C-h> :bp!<CR>
+map <C-j> :bn!<CR>
+map <C-l> :bn!<CR>
+imap <C-k> <esc>:bp!<CR>
+imap <C-h> <esc>:bp!<CR>
+imap <C-j> <esc>:bn!<CR>
+imap <C-l> <esc>:bn!<CR>
+"map <C-w> :bd<CR> "removed since C-w is used for window commands.
+so ~/.vim/statusline.vim "get a status line with buffers listed
 
 "rainbow parens
 au VimEnter * RainbowParenthesesToggle

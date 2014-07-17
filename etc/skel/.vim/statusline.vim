@@ -1,3 +1,5 @@
+set laststatus=2
+hi CurBuf term=bold ctermfg=Cyan
 let g:BufsLeft  = ""
 let g:CurBuffer = ""
 let g:BufsRight = ""
@@ -8,9 +10,9 @@ set statusline+=%#SyntaxLine#
 set statusline+=%{g:BufsRight}
 set statusline+=%<%=[%l][%c][%P][%L]%<
 
-" UpdateStatus - Updates the status bar to display a list of buffers
+"updatestatus - updates the status bar to display a list of buffers
 function! UpdateStatus(lmarg,rmarg)
-" Reset our Globals
+	"reset globals
 	let g:CurBuffer = '[' . bufnr('%') . ' ' . expand('%:t') . ((&modified) ? ' +]' : ']')
 	let g:BufsLeft = ""
 	let g:BufsRight = ""
@@ -50,7 +52,6 @@ function! UpdateStatus(lmarg,rmarg)
 	endif
 endfunction
 
-" update the buffer list in the status line
+"update the buffer list in the status line
 autocmd VimEnter,BufNew,BufEnter,BufWritePost,VimResized,FocusLost,FocusGained,InsertLeave * call UpdateStatus(0,20)
-
 
