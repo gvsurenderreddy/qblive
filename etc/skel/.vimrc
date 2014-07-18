@@ -12,7 +12,8 @@ set tabstop=4      "set width of tab characters
 set shiftwidth=4   "set the size used for vim's re-indent operator ( shift-> and shift-< )
 set softtabstop=4  "backspace over expanded tabs
 "set expandtab     "use spaces for tabs instead of tabs for tabs
-set copyindent     "match indentation level of previous line
+set autoindent     "match indentation level of previous line
+set copyindent     "match indentation characters (tabs vs spaces) of previous line
 
 " buffer management
 set hidden "suppress warning when switching from unsaved buffer
