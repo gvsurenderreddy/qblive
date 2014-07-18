@@ -2,7 +2,7 @@
 
 QBL_LABEL="ARCH_$(date +%Y%m)"
 QBL_FILEPATH="/qblive.iso"
-QBL_DEVICE="/dev/disk/by-label/qblive"
+QBL_DEVICE="/dev/disk/by-label/olivaw"
 
 output_file="grub.cfg"
 if [[ -f "$output_file" ]]; then

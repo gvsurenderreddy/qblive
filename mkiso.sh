@@ -22,7 +22,7 @@ sudo cp -r etc/* releng/root-image/etc
 sudo cp -r root/* releng/root-image/root
 
 #create the persistent mountpoint
-sudo mkdir -p "releng/root-image/mnt/persist"
+sudo mkdir -p "releng/root-image/mnt/baley"
 
 #cd to releng so generated directories out & work are contained.
 pushd releng
