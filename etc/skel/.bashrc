@@ -29,6 +29,9 @@ PS1="\u@\h \$(if [[ \$? == 0 ]]; then echo \"${PSWIN}\"; else echo \"${PSFAIL}\"
 #fix errors in spectrwm
 LD_PRELOAD=""
 
+#load da
+. $HOME/da.sh
+
 #note: to mount an iso image:
 #may need to sudo modprobe loop on arch
 #sudo mount -o loop $1 /media/cdrom0
