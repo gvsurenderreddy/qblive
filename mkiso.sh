@@ -18,8 +18,8 @@ sudo cp -r /usr/share/archiso/configs/releng/ .
 sudo cp packages.both releng
 
 #move in custom config files
-sudo cp -r etc/* releng/root-image/etc
-sudo cp -r root/* releng/root-image/root
+sudo cp -r etc/* releng/airootfs/etc
+sudo cp -r root/* releng/airootfs/root
 
 #create the persistent mountpoint
 sudo mkdir -p "releng/root-image/mnt/baley"
