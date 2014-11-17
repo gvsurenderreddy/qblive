@@ -4,3 +4,9 @@ hardstatus alwayslastline "%w%?%=%c %1`"
 #caption always '%w'
 startup_message off
 
+bind j next
+bind ^j next
+bind k prev
+bind ^k prev
+#use uppercase K to kill window
+
