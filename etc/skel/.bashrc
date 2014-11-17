@@ -5,6 +5,16 @@ export BROWSER=firefox
 # Gtk themes
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 
+#if in screen, set screen's title to command. revert when done
+function screen_title_cmd(){
+	if [[ ! -z "$STY" ]]; then
+		local old_title="$(screen -Q title)"
+		screen -X title "$1"
+	fi
+	$*
+	[[ ! -z "$STY" ]] && screen -X title "$old_title"
+}
+
 alias ls='ls -F --color=auto'
 alias ll="ls -lh"
 alias la="ls -lah"
@@ -12,9 +22,14 @@ alias gst="git status"
 alias nocaps="setxkbmap -option 'ctrl:nocaps'"
 #clear the exit code, forcing prompt to smile
 alias k='clear'
+#pacman aliases
 alias Up='sudo pacman -Syu'
 alias Pm='sudo pacman -S'
 alias Ps='pacman -Ss'
+
+#commands that will set screen window titles
+alias finch='screen_title_cmd finch'
+alias vim='screen_title_cmd vim'
 
 # Colors
 COLOR_ESC='\[\033['
