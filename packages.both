@@ -25,7 +25,6 @@ ipw2200-fw
 irssi
 lftp
 linux-atm
-mc
 mtools
 nfs-utils
 nilfs-utils
@@ -80,14 +79,13 @@ bc
 archiso
 chicken
 m4
-gvfs
-gvfs-mtp
 moc
 python
 audacity
 htop
 ruby
 markdown
+sl
 #kerbalspaceprogram:
 glu
 ttf-freefont
