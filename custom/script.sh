@@ -1,13 +1,12 @@
 #!/bin/bash
 
 #warning. rough script.
-#will not tolerate execution from alternative directories, no error checking, etc.
+#will not tolerate execution from alternative directories, no error checking, no cleanup
 
 mkdir x86_64
-mkdir i686 #note, since we're building on a 64bit system, this will be empty.
-#package will be unavailable on 32bit builds, so only include in packages.x86_64
 
 ##download tar.gz from AUR
+wget https://aur.archlinux.org/packages/br/broadcom-wl-dkms/broadcom-wl-dkms.tar.gz
 #unpack it:
 tar -xzf broadcom-wl-dkms.tar.gz
 pushd broadcom-wl-dkms
