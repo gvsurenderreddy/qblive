@@ -1,6 +1,6 @@
 gummiboot
 prebootloader
 refind-efi
-dkmx
+dkms
 broadcom-wl-dkms
 
