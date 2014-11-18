@@ -10,3 +10,6 @@ bind k prev
 bind ^k prev
 #use uppercase K to kill window
 
+#copybuffer to x clipboard
+bind 'C' eval writebuf 'exec /bin/bash -c "/usr/bin/xsel -bi < /tmp/screen-exchange"'
+
