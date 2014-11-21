@@ -20,6 +20,7 @@ sudo cp packages.both releng
 #move in custom config files
 sudo cp -r etc/* releng/airootfs/etc
 sudo cp -r root/* releng/airootfs/root
+sudo cp mntiso releng/airootfs/usr/bin
 
 #create the persistent mountpoint
 sudo mkdir -p "releng/root-image/mnt/persist"
