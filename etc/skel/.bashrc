@@ -6,12 +6,15 @@ export BROWSER=chromium
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 
 #if in screen, set screen's title to command. revert when done
-function screen_title_cmd(){
+function set_title_and_run(){
+	local title="$1"
+	shift
+	local cmd="$*"
 	if [[ ! -z "$STY" ]]; then
 		local old_title="$(screen -Q title)"
-		screen -X title "$1"
+		screen -X title "$title"
 	fi
-	$*
+	$cmd
 	[[ ! -z "$STY" ]] && screen -X title "$old_title"
 }
 
@@ -28,8 +31,9 @@ alias Pm='sudo pacman -S'
 alias Ps='pacman -Ss'
 
 #commands that will set screen window titles
-alias finch='screen_title_cmd finch'
-alias vim='screen_title_cmd vim'
+alias profanity='set_title_and_run chat profanity'
+alias vim='set_title_and_run vim vim'
+alias beep='echo -en "\007"'
 
 # Colors
 COLOR_ESC='\[\033['
@@ -46,12 +50,6 @@ LD_PRELOAD=""
 
 #load da
 . $HOME/da.sh
-
-function mntlbl(){
-	local label="${1:?"no label given"}"
-	mkdir -p "/mnt/$label"
-	mount -L "$label" "/mnt/$label"
-}
 
 #note: to mount an iso image:
 #may need to sudo modprobe loop on arch

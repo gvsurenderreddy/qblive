@@ -21,6 +21,7 @@ sudo cp packages.x86_64 releng
 #move in custom config files
 sudo cp -r etc/* releng/airootfs/etc
 sudo cp -r root/* releng/airootfs/root
+sudo cp mntiso releng/airootfs/usr/bin
 
 #copy in pacman conf that lists local custom repo
 sudo cp pacman.conf releng/pacman.conf
