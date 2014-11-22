@@ -51,6 +51,12 @@ LD_PRELOAD=""
 #load da
 . $HOME/da.sh
 
+function mntlbl(){
+	local label="${1:?"no label given"}"
+	sudo mkdir -p "/mnt/$label"
+	sudo mount -L "$label" "/mnt/$label"
+}
+
 #note: to mount an iso image:
 #may need to sudo modprobe loop on arch
 #sudo mount -o loop $1 /media/cdrom0

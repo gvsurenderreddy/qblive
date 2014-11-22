@@ -1,6 +1,0 @@
-#!/bin/bash
-
-label="${1:?"no label given"}"
-mkdir -p "/mnt/$label"
-mount -L "$label" "/mnt/$label"
-
