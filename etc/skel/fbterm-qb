@@ -1,0 +1,26 @@
+#!/bin/bash
+# fbterm-qb: a wrapper script to set background image with fbterm
+# usage: fbterm-qb /path/to/image
+
+#TODO: if no image given, randomly select one from a default path
+
+if [[ ! -z "$AUS" ]]; then options="$options -r2"; fi
+#note: background image does not respect australian mode
+
+if [[ -f "$1" ]]; then
+	echo -ne "\e[?25l" # hide cursor
+	clear #clear the screen; helps eliminate artifacts if image is not a perfect fit
+	#display the image, quit fbv, and continue
+	#cuike:
+	#	don't  clear the screen when done
+	#	don't bother with the cursor (we already hid it)
+	#	don't show image information
+	#	squish oversized images to fit (preserving aspect ratio since -r is not present)
+	#	stretch undersized images to fit
+	echo 'q' | fbv -cuike "$1" 
+	#instructs fbterm to take a screenshot (of the image we just set) and use that as the wallpaper when starting
+	export FBTERM_BACKGROUND_IMAGE=1
+fi
+#reattach to screen session, if one exists already
+exec fbterm $options -- screen -R
+
