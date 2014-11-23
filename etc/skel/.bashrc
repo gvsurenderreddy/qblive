@@ -33,7 +33,8 @@ alias Ps='pacman -Ss'
 #commands that will set screen window titles
 alias profanity='set_title_and_run chat profanity'
 alias vim='set_title_and_run vim vim'
-alias w3m='set_title_and_run w3m w3m'
+alias w3m='set_title_and_run w3m w3m -v'
+alias mocp='set_title_and_run mocp mocp -T transparent-background'
 
 #beep. useful to get screen notification when command finishes ala './some_long_script; beep'
 alias beep='echo -en "\007"'
