@@ -1,9 +1,11 @@
-keymap C-j NEXT_TAB
+#for some reason, this breaks [enter] to edit a textbox
+#keymap C-j NEXT_TAB
 keymap C-k PREV_TAB
-keymap C-J TAB_RIGHT
-keymap C-K TAB_LEFT
+##these dont work because w3m gets confused between upper/lowercase letters
+#keymap C-J TAB_RIGHT
+#keymap C-K TAB_LEFT
 keymap C-w CLOSE_TAB
-keymap C-q QUIT
+#keymap C-q QUIT
 keymap C-l GOTO
 keymap T TAB_GOTO
 
