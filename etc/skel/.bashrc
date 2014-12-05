@@ -6,12 +6,15 @@ export BROWSER=firefox
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 
 #if in screen, set screen's title to command. revert when done
-function screen_title_cmd(){
+function set_title_and_run(){
+	local title="$1"
+	shift
+	local cmd="$*"
 	if [[ ! -z "$STY" ]]; then
 		local old_title="$(screen -Q title)"
-		screen -X title "$1"
+		screen -X title "$title"
 	fi
-	$*
+	$cmd
 	[[ ! -z "$STY" ]] && screen -X title "$old_title"
 }
 
@@ -28,8 +31,13 @@ alias Pm='sudo pacman -S'
 alias Ps='pacman -Ss'
 
 #commands that will set screen window titles
-alias finch='screen_title_cmd finch'
-alias vim='screen_title_cmd vim'
+alias profanity='set_title_and_run chat profanity'
+alias vim='set_title_and_run vim vim'
+alias w3m='set_title_and_run w3m w3m -v'
+alias mocp='set_title_and_run mocp mocp -T transparent-background'
+
+#beep. useful to get screen notification when command finishes ala './some_long_script; beep'
+alias beep='echo -en "\007"'
 
 # Colors
 COLOR_ESC='\[\033['
@@ -49,8 +57,8 @@ LD_PRELOAD=""
 
 function mntlbl(){
 	local label="${1:?"no label given"}"
-	mkdir -p "/mnt/$label"
-	mount -L "$label" "/mnt/$label"
+	sudo mkdir -p "/mnt/$label"
+	sudo mount -L "$label" "/mnt/$label"
 }
 
 #note: to mount an iso image:
