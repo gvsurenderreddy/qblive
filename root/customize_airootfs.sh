@@ -11,7 +11,7 @@ ln -sf /usr/share/zoneinfo/UTC /etc/localtime
 cp -aT /etc/skel/ /root/
 chmod 700 /root
 
-useradd -m -p "" -g users -G "adm,audio,floppy,log,network,rfkill,scanner,storage,optical,power,wheel" -s /bin/bash a
+useradd -m -p "" -g users -G "adm,audio,floppy,log,network,rfkill,scanner,storage,optical,power,wheel,video" -s /bin/bash a
 
 chmod 750 /etc/sudoers.d
 chmod 440 /etc/sudoers.d/g_wheel
