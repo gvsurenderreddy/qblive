@@ -92,4 +92,7 @@ xsel
 #kerbalspaceprogram:
 glu
 ttf-freefont
+intel-ucode
+xorg-xrandr
+scrot
 
