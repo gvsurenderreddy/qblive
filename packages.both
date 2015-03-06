@@ -79,7 +79,7 @@ bc
 archiso
 chicken
 m4
-moc
+cmus
 python
 audacity
 htop
@@ -87,9 +87,10 @@ ruby
 markdown
 sl
 aspell-en
-xsel
 w3m
-fbterm
+xsel
 intel-ucode
 xorg-xrandr
 scrot
+fbterm
+

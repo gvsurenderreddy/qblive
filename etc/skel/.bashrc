@@ -34,7 +34,7 @@ alias Ps='pacman -Ss'
 alias profanity='set_title_and_run chat profanity'
 alias vim='set_title_and_run vim vim'
 alias w3m='set_title_and_run w3m w3m -v'
-alias mocp='set_title_and_run mocp mocp -T transparent-background'
+alias cmus="set_title_and_run cmus cmus"
 
 #beep. useful to get screen notification when command finishes ala './some_long_script; beep'
 alias beep='echo -en "\007"'
@@ -45,9 +45,9 @@ COLOR_END='m\]'
 COLOR_RESET="${COLOR_ESC}0${COLOR_END}"
 COLOR_GREEN="${COLOR_ESC}1;32${COLOR_END}"
 COLOR_RED="${COLOR_ESC}1;31${COLOR_END}"
-PSWIN="${COLOR_GREEN}:-]"
-PSFAIL="${COLOR_RED}:-["
-PS1="\u@\h \$(if [[ \$? == 0 ]]; then echo \"${PSWIN}\"; else echo \"${PSFAIL}\"; fi) ${COLOR_RESET}"
+PSWIN="${COLOR_GREEN}:-]${COLOR_RESET}"
+PSFAIL="${COLOR_RED}:-[${COLOR_RESET}"
+PS1="\u@\h \$((( \$? == 0 )) && echo \"${PSWIN}\" || echo \"${PSFAIL}\") "
 
 #fix errors in spectrwm
 LD_PRELOAD=""
