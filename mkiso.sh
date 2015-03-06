@@ -22,7 +22,7 @@ sudo cp -r etc/* releng/airootfs/etc
 sudo cp -r root/* releng/airootfs/root
 
 #create the persistent mountpoint
-sudo mkdir -p "releng/root-image/mnt/baley"
+sudo mkdir -p "releng/root-image/mnt/persist"
 
 #cd to releng so generated directories out & work are contained.
 pushd releng
