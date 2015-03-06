@@ -22,8 +22,11 @@ EOF
 for arch in x86_64 i686; do
 	cat<<-EOF >> $output_file
 		menuentry "QBLive ($arch)" {
-		 loopback loop $QBL_FILEPATH
-		 linux (loop)/arch/boot/$arch/vmlinuz archisolabel=$QBL_LABEL img_dev=$QBL_DEVICE img_loop=$QBL_FILEPATH earlymodules=loop
+		 set isofile="$QBL_FILEPATH"
+		 set isolabel="$QBL_LABEL"
+		 set imgdevice="$QBL_DEVICE"
+		 loopback loop \$isofile
+		 linux (loop)/arch/boot/$arch/vmlinuz archisolabel=\$isolabel img_dev=\$imgdevice img_loop=\$isofile earlymodules=loop
 		 initrd (loop)/arch/boot/$arch/archiso.img
 		}
 	EOF
