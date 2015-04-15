@@ -11,8 +11,7 @@ function! UpdateStatus()
 	while(i <= bufnr('$'))
 		if buflisted(i)
 			let bdelim = (empty(newStatus) ? '' : delim)
-			let bname = fnamemodify(bufname(i),':t')
-			let btitle = i . ' ' . bname
+			let btitle = i . ' ' . fnamemodify(bufname(i),':t')
 			if i == bufnr('%')
 				let curBufIdx = plainLength
 				let bcolor = &modified ? '%#CurMod#' : '%#CurBuf#'
