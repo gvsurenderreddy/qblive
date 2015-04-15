@@ -1,49 +1,45 @@
 " UpdateStatus - Updates the status bar to display a list of buffers
 function! UpdateStatus()
-    " Reset our Globals
-    let g:CurBuffer =  bufnr('%') . ' ' . expand('%:t')
-    let g:BufsLeft = ""
-    let g:BufsRight = ""
-
-    let my_left_len = (winwidth(0) - len(g:CurBuffer))
-    let my_right_len = 0
-    let i = bufnr('$')
-
-    while(i > 0)
-        if buflisted(i) && getbufvar(i, "&modifiable") && i != bufnr('%')
-            let bufName  =  i . ' ' . fnamemodify(bufname(i), ":t") " . ' | '
-            let bufName .= (getbufvar(i, "&modified") ? '[+]' : '' )
-            if i < bufnr('%')
-                let g:BufsLeft = bufName . ' | ' . g:BufsLeft
-            else
-                let g:BufsRight = ' | ' . bufName . g:BufsRight
-            endif
-        endif
-        let i -= 1
-    endwhile
-    let g:BufsRight = ' ' . g:BufsRight
-
-    if len(g:BufsLeft) < my_left_len
-        let my_right_len = winwidth(0) - (len(g:BufsLeft) + len(g:CurBuffer))
-    endif
-
-    if len(g:BufsRight) < my_right_len
-        let my_left_len = winwidth(0) - (len(g:BufsRight) + len(g:CurBuffer))
-    endif
-
-    if len(g:BufsLeft) > my_left_len
-        let g:BufsLeft = '<' . strpart(g:BufsLeft, len(g:BufsLeft) - my_left_len, my_left_len)
-    endif
-
-    if len(g:BufsRight) > my_right_len
-        let g:BufsRight = strpart(g:BufsRight, 0, my_right_len) . '>'
-    endif
-
-    set statusline=%#SyntaxLine#%{g:BufsLeft}
-    set statusline+=%#CurBuf#
-    set statusline+=%{g:CurBuffer}%m
-    set statusline+=%#SyntaxLine#
-    set statusline+=%{g:BufsRight}
-    set statusline+=%<%=[%l][%c][%P][%L]%<
+	let delim = ' | '
+	let i = 1
+	let newStatus = ''
+	let curBufIdx = 0
+	let allowedLength = winwidth(0) - 12
+	let statusTruncated = 0
+	let plainLength = 0
+	let bgColor = '%#SyntaxLine#'
+	while(i <= bufnr('$'))
+		if buflisted(i)
+			let bdelim = (empty(newStatus) ? '' : delim)
+			let bname = fnamemodify(bufname(i),':t')
+			let btitle = i . ' ' . bname
+			if i == bufnr('%')
+				let curBufIdx = plainLength
+				let bcolor = &modified ? '%#CurMod#' : '%#CurBuf#'
+			else
+				let bcolor = getbufvar(i, '&modified') ? '%#ModBuf#' : '%#AltBuf#'
+			endif
+			let remainingChars = allowedLength - plainLength
+			let plainLength += len(bdelim . btitle)
+			if plainLength < allowedLength || i <= bufnr('%') || 
+					\ (i-1 == bufnr('%') && (plainLength - curBufIdx) < allowedLength)
+				let newStatus .= bgColor . bdelim . bcolor . btitle
+			elseif statusTruncated == 0
+				"need to fill the rest of allowedLength
+				let pad = ''
+				if remainingChars <= len(delim)
+					"if the delimiter wont fit, pad with spaces to the >
+					let pad=strpart('    ', 0, remainingChars - 1)
+				else
+					let newStatus .= bgColor . delim . bcolor . strpart(btitle, 0, remainingChars - len(delim) - 1)
+				endif
+				let newStatus .= bgColor.pad.'>'
+				let statusTruncated = 1
+			end
+		endif
+		let i += 1
+	endwhile
+	let newStatus .= bgColor . '%=%6l/%5L'
+	execute 'set statusline='.substitute(newStatus, '\([ |]\)', '\\\1', 'g')
 endfunction
 
