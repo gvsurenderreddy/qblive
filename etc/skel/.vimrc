@@ -1,7 +1,7 @@
 "status line with buffers listed
 set laststatus=2
-so ~/.vim/statusline.2.vim
-autocmd VimEnter,BufNew,BufEnter,BufWinEnter,BufDelete,BufWritePost,VimResized,InsertLeave,InsertChange,CursorMoved,CursorMovedI,ColorScheme * call UpdateStatus()
+so ~/.vim/statusline.vim
+autocmd BufEnter,BufWritePost,VimResized,CursorMoved,CursorMovedI,ColorScheme * call UpdateStatus()
 
 
 "rainbow parens
