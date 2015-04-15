@@ -23,15 +23,9 @@ function! UpdateStatus()
 					\ (i-1 == bufnr('%') && (statusLength - curBufIdx) < allowedLength)
 				let newStatus .= bgColor . bdelim . bcolor . btitle
 			else
-				"need to fill the rest of allowedLength
-				let pad = ''
-				if remainingChars <= len(delim)
-					"if the delimiter wont fit, pad with spaces to the >
-					let pad=strpart('    ', 0, remainingChars - 1)
-				else
-					let newStatus .= bgColor . delim . bcolor . strpart(btitle, 0, remainingChars - len(delim) - 1)
-				endif
-				let newStatus .= bgColor.pad.'>'
+				let bdelim = strpart(delim, 0, remainingChars - 1)
+				let btitle = strpart(btitle, 0, remainingChars - len(delim) - 1)
+				let newStatus .= bgColor . bdelim . bcolor . btitle . bgColor . '>'
 				break
 			end
 		endif
