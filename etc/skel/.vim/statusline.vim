@@ -5,22 +5,22 @@ function! UpdateStatus()
 	let newStatus = ''
 	let curBufIdx = 0
 	let allowedLength = winwidth(0) - 12
-	let plainLength = 0
+	let statusLength = 0
 	let bgColor = '%#SyntaxLine#'
 	while(i <= bufnr('$'))
 		if buflisted(i)
 			let bdelim = (empty(newStatus) ? '' : delim)
 			let btitle = i . ' ' . fnamemodify(bufname(i),':t')
 			if i == bufnr('%')
-				let curBufIdx = plainLength
+				let curBufIdx = statusLength
 				let bcolor = &modified ? '%#CurMod#' : '%#CurBuf#'
 			else
 				let bcolor = getbufvar(i, '&modified') ? '%#ModBuf#' : '%#AltBuf#'
 			endif
-			let remainingChars = allowedLength - plainLength
-			let plainLength += len(bdelim . btitle)
-			if plainLength < allowedLength || i <= bufnr('%') || 
-					\ (i-1 == bufnr('%') && (plainLength - curBufIdx) < allowedLength)
+			let remainingChars = allowedLength - statusLength
+			let statusLength += len(bdelim . btitle)
+			if statusLength < allowedLength || i <= bufnr('%') || 
+					\ (i-1 == bufnr('%') && (statusLength - curBufIdx) < allowedLength)
 				let newStatus .= bgColor . bdelim . bcolor . btitle
 			else
 				"need to fill the rest of allowedLength
