@@ -5,7 +5,6 @@ function! UpdateStatus()
 	let newStatus = ''
 	let curBufIdx = 0
 	let allowedLength = winwidth(0) - 12
-	let statusTruncated = 0
 	let plainLength = 0
 	let bgColor = '%#SyntaxLine#'
 	while(i <= bufnr('$'))
@@ -23,7 +22,7 @@ function! UpdateStatus()
 			if plainLength < allowedLength || i <= bufnr('%') || 
 					\ (i-1 == bufnr('%') && (plainLength - curBufIdx) < allowedLength)
 				let newStatus .= bgColor . bdelim . bcolor . btitle
-			elseif statusTruncated == 0
+			else
 				"need to fill the rest of allowedLength
 				let pad = ''
 				if remainingChars <= len(delim)
@@ -33,7 +32,7 @@ function! UpdateStatus()
 					let newStatus .= bgColor . delim . bcolor . strpart(btitle, 0, remainingChars - len(delim) - 1)
 				endif
 				let newStatus .= bgColor.pad.'>'
-				let statusTruncated = 1
+				break
 			end
 		endif
 		let i += 1
